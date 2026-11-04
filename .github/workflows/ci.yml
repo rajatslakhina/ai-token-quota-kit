@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     container: swift:6.0
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Build (clean, warnings as errors)
         run: swift build -Xswiftc -warnings-as-errors
       - name: Test (core + portable scenario engine)
@@ -22,7 +22,7 @@ jobs:
     name: macOS · tests + iOS Simulator build
     runs-on: macos-15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Test (macOS, includes the SwiftUI module)
         run: swift test -Xswiftc -warnings-as-errors
       - name: Build for iOS Simulator (compile-only, no device needed)
@@ -36,6 +36,6 @@ jobs:
     name: Mutation check (each breakage must fail the suite)
     runs-on: macos-15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Run scripts/mutation-check.sh
         run: scripts/mutation-check.sh

@@ -21,7 +21,7 @@ TokenQuotaKit is the other half: a **real-time, per-user token-quota system** fo
                                                        vs. report, nightly └───────────────────┘
 ```
 
-Demo app: (link added when the companion repo is published)
+**Demo app:** [ai-token-quota-demo-app](https://github.com/rajatslakhina/ai-token-quota-demo-app), a SwiftUI console that drives this package through five scenarios on the iOS Simulator, with screenshots. It resolves this repo from GitHub at the `v1.0.0` tag.
 
 ## Why this matters
 
@@ -219,8 +219,8 @@ scripts/mutation-check.sh     # reapplies each deliberate breakage; every one mu
 * **Linux, Swift 6.0.3** (clean build, `-warnings-as-errors`): build succeeds, **137/137 tests pass** (124 core + 5 public-API + 8 scenario). The scenario engine is portable, so the demo's five scenarios also run on Linux.
 * **macOS, Xcode 27.2 / Swift 6.4.2:** 137/137 tests pass, and the package builds for the iOS Simulator as part of the demo app.
 * **Public API:** `TokenQuotaPublicAPITests` imports the module *without* `@testable` and implements two `QuotaTransport`s over a JSON wire, the way an app would; one sends only the request ID, the feature and the prompt.
-* **Simulator:** see the demo repo. The app was installed and launched on an iPhone 18 Pro Simulator (iOS 27.2) in all five scenarios.
-* **CI** ([Actions](../../actions)): (filled in after the first run). The workflow has three jobs: Linux `swift:6.0` (build + tests, warnings as errors), macOS (tests + generic iOS Simulator build), and macOS running the mutation check.
+* **Simulator:** see the [demo repo](https://github.com/rajatslakhina/ai-token-quota-demo-app#verification). The app was installed and launched on an iPhone 18 Pro Simulator (iOS 27.2) in all five scenarios.
+* **CI** ([Actions](https://github.com/rajatslakhina/ai-token-quota-kit/actions)): all three jobs green on the first push ([run 41837982349](https://github.com/rajatslakhina/ai-token-quota-kit/actions/runs/41837982349), commit `a484dc0`). Linux `swift:6.0` builds and runs the 137 tests with warnings as errors; macOS runs the tests and builds the package for the generic iOS Simulator; a second macOS job runs the mutation check (98/98 caught).
 
 ## Mutation results
 
