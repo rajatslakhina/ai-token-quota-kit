@@ -224,7 +224,16 @@ scripts/mutation-check.sh     # reapplies each deliberate breakage; every one mu
 
 ## Mutation results
 
-(Filled in from the final run.)
+`scripts/mutation-check.sh` on this tree: **98/98 mutations caught**, on Linux (Swift 6.0.3) and on macOS (Xcode 27.2), exit 0 on both. Each one reapplies a single deliberate breakage that a README claim depends on, and the suite must fail. Every pattern has to occur exactly once, so a mutation can't silently hit the wrong function. They cover:
+
+* **Check-all-then-commit:** denial leaks to the bucket, the daily window and held org spend, plus the daily boundary.
+* **Idempotency:** replay, fingerprints for open, finished and mid-call IDs, settled and expired IDs, claim single-use, claim identity on open, finished and mid-call IDs, the duplicate settle, and capacity vs. retention.
+* **Lifetimes and provisional charges:** the two hold TTLs, provisional charges for normal and outage grants, refunds below the provisional charge, purge and eviction of mid-call expiries.
+* **Outages:** journal replay, parked refunds, slots freed during an outage, allowance per outage, oversized outage requests, and the dropped-entry and dropped-charge counters.
+* **Breaker:** velocity (sliding window, quiet period after a reset, history cleared by a reset), overspend once per window and cap even while open, override re-arming, windows that never reopen on a backwards clock, and the cooldown outliving the hour.
+* **Bucket and map:** exact refill, the backwards-clock high-water mark, the debt floor, `give` overfill, move-to-newest on rewrite, both compactions, and the capacity clamp.
+* **Client:** one ID per action, the cooldown max, the short-circuit, the re-check after `await`, backoff, the cooldown after total failure, every cancellation path, the attempt cap, permanent vs. transient denials, the pre-check freshness and ordering, and degraded grants.
+* **Reconciler:** lag vs. drift, excess flagged while data is incomplete, row summing, tolerance side, the `data_refreshed_at` watermark, month-end finality and attribution day.
 
 ## Scope and honesty notes
 
